@@ -141,7 +141,7 @@ public class Thread implements Runnable {
     /* Make sure registerNatives is the first thing <clinit> does. */
     private static native void registerNatives();
     static {
-        registerNatives();
+        registerNatives(); //注册本地方法
     }
 
     private volatile char  name[];

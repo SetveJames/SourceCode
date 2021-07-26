@@ -50,8 +50,7 @@ static JNINativeMethod methods[] = {
 JNIEXPORT void JNICALL
 Java_java_lang_Object_registerNatives(JNIEnv *env, jclass cls)
 {
-    (*env)->RegisterNatives(env, cls,
-                            methods, sizeof(methods)/sizeof(methods[0]));
+    (*env)->RegisterNatives(env, cls, methods, sizeof(methods)/sizeof(methods[0]));
 }
 
 JNIEXPORT jclass JNICALL

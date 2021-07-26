@@ -717,16 +717,11 @@ struct JNINativeInterface_ {
     void (JNICALL *SetDoubleArrayRegion)
       (JNIEnv *env, jdoubleArray array, jsize start, jsize len, const jdouble *buf);
 
-    jint (JNICALL *RegisterNatives)
-      (JNIEnv *env, jclass clazz, const JNINativeMethod *methods,
-       jint nMethods);
-    jint (JNICALL *UnregisterNatives)
-      (JNIEnv *env, jclass clazz);
+    jint (JNICALL *RegisterNatives)(JNIEnv *env, jclass clazz, const JNINativeMethod *methods, jint nMethods);
+    jint (JNICALL *UnregisterNatives)(JNIEnv *env, jclass clazz);
 
-    jint (JNICALL *MonitorEnter)
-      (JNIEnv *env, jobject obj);
-    jint (JNICALL *MonitorExit)
-      (JNIEnv *env, jobject obj);
+    jint (JNICALL *MonitorEnter)(JNIEnv *env, jobject obj);
+    jint (JNICALL *MonitorExit)(JNIEnv *env, jobject obj);
 
     jint (JNICALL *GetJavaVM)
       (JNIEnv *env, JavaVM **vm);
@@ -1793,8 +1788,7 @@ struct JNIEnv_ {
         functions->SetDoubleArrayRegion(this,array,start,len,buf);
     }
 
-    jint RegisterNatives(jclass clazz, const JNINativeMethod *methods,
-                         jint nMethods) {
+    jint RegisterNatives(jclass clazz, const JNINativeMethod *methods, jint nMethods) {
         return functions->RegisterNatives(this,clazz,methods,nMethods);
     }
     jint UnregisterNatives(jclass clazz) {

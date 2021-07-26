@@ -178,9 +178,9 @@ typedef enum _jobjectType {
  */
 
 typedef struct {
-    char *name;
-    char *signature;
-    void *fnPtr;
+    char *name; //本地方法名称
+    char *signature; //本地方法签名
+    void *fnPtr; // 指向本地方法的方法指针
 } JNINativeMethod;
 
 /*

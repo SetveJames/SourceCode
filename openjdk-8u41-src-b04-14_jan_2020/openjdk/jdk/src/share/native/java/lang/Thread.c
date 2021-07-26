@@ -65,8 +65,10 @@ static JNINativeMethod methods[] = {
 #undef STE
 #undef STR
 
-JNIEXPORT void JNICALL
+//对应java.lang.Thread类中的registerNatives()本地方法
+JNIEXPORT void JNICALL 
 Java_java_lang_Thread_registerNatives(JNIEnv *env, jclass cls)
 {
+	// 注册本地方法
     (*env)->RegisterNatives(env, cls, methods, ARRAY_LENGTH(methods));
 }

@@ -3985,12 +3985,11 @@ static Method* find_prefixed_native(KlassHandle k,
 }
 
 static bool register_native(KlassHandle k, Symbol* name, Symbol* signature, address entry, TRAPS) {
-  Method* method = k()->lookup_method(name, signature);
+  Method* method = k()->lookup_method(name, signature); //获取方法
   if (method == NULL) {
     ResourceMark rm;
     stringStream st;
-    st.print("Method %s name or signature does not match",
-             Method::name_and_sig_as_C_string(k(), name, signature));
+    st.print("Method %s name or signature does not match",Method::name_and_sig_as_C_string(k(), name, signature));
     THROW_MSG_(vmSymbols::java_lang_NoSuchMethodError(), st.as_string(), false);
   }
   if (!method->is_native()) {
@@ -3999,15 +3998,13 @@ static bool register_native(KlassHandle k, Symbol* name, Symbol* signature, addr
     if (method == NULL) {
       ResourceMark rm;
       stringStream st;
-      st.print("Method %s is not declared as native",
-               Method::name_and_sig_as_C_string(k(), name, signature));
+      st.print("Method %s is not declared as native",Method::name_and_sig_as_C_string(k(), name, signature));
       THROW_MSG_(vmSymbols::java_lang_NoSuchMethodError(), st.as_string(), false);
     }
   }
 
   if (entry != NULL) {
-    method->set_native_function(entry,
-      Method::native_bind_event_is_interesting);
+    method->set_native_function(entry,Method::native_bind_event_is_interesting);
   } else {
     method->clear_native_function();
   }
@@ -4027,6 +4024,7 @@ DT_RETURN_MARK_DECL(RegisterNatives, jint
                     , HOTSPOT_JNI_REGISTERNATIVES_RETURN(_ret_ref));
 #endif /* USDT2 */
 
+// 注冊本地方法
 JNI_ENTRY(jint, jni_RegisterNatives(JNIEnv *env, jclass clazz,
                                     const JNINativeMethod *methods,
                                     jint nMethods))
@@ -4043,9 +4041,9 @@ JNI_ENTRY(jint, jni_RegisterNatives(JNIEnv *env, jclass clazz,
   KlassHandle h_k(thread, java_lang_Class::as_Klass(JNIHandles::resolve_non_null(clazz)));
 
   for (int index = 0; index < nMethods; index++) {
-    const char* meth_name = methods[index].name;
-    const char* meth_sig = methods[index].signature;
-    int meth_name_len = (int)strlen(meth_name);
+    const char* meth_name = methods[index].name; //获取本地方法名
+    const char* meth_sig = methods[index].signature; //获取本地方法签名
+    int meth_name_len = (int)strlen(meth_name); //计算方法名称的长度
 
     // The class should have been loaded (we have an instance of the class
     // passed in) so the method and signature should already be in the symbol
@@ -4061,6 +4059,7 @@ JNI_ENTRY(jint, jni_RegisterNatives(JNIEnv *env, jclass clazz,
       THROW_MSG_(vmSymbols::java_lang_NoSuchMethodError(), st.as_string(), -1);
     }
 
+	//注册本地方法
     bool res = register_native(h_k, name, signature,
                                (address) methods[index].fnPtr, THREAD);
     if (!res) {
