@@ -74,12 +74,12 @@ template<class E> class GrowableArray;
 
 // Platform-independent error return values from OS functions
 enum OSReturn {
-  OS_OK         =  0,        // Operation was successful
-  OS_ERR        = -1,        // Operation failed
-  OS_INTRPT     = -2,        // Operation was interrupted
-  OS_TIMEOUT    = -3,        // Operation timed out
-  OS_NOMEM      = -5,        // Operation failed for lack of memory
-  OS_NORESOURCE = -6         // Operation failed for lack of nonmemory resource
+  OS_OK         =  0,        // Operation was successful 成功
+  OS_ERR        = -1,        // Operation failed 失败
+  OS_INTRPT     = -2,        // Operation was interrupted 被中断
+  OS_TIMEOUT    = -3,        // Operation timed out 超时
+  OS_NOMEM      = -5,        // Operation failed for lack of memory 内存不足
+  OS_NORESOURCE = -6         // Operation failed for lack of nonmemory resource 没内存资源
 };
 
 enum ThreadPriority {        // JLS 20.20.1-3

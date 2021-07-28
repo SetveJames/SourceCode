@@ -3950,6 +3950,7 @@ static int prio_init() {
   return 0;
 }
 
+//设置线程优先级
 OSReturn os::set_native_priority(Thread* thread, int newpri) {
   if ( !UseThreadPriorities || ThreadPriorityPolicy == 0 ) return OS_OK;
 
@@ -3957,6 +3958,7 @@ OSReturn os::set_native_priority(Thread* thread, int newpri) {
   return (ret == 0) ? OS_OK : OS_ERR;
 }
 
+//获取线程优先级
 OSReturn os::get_native_priority(const Thread* const thread, int *priority_ptr) {
   if ( !UseThreadPriorities || ThreadPriorityPolicy == 0 ) {
     *priority_ptr = java_to_os_priority[NormPriority];

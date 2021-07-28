@@ -34,13 +34,13 @@ package java.lang;
  * wish to execute code while they are active. For example,
  * <code>Runnable</code> is implemented by class <code>Thread</code>.
  * Being active simply means that a thread has been started and has not
- * yet been stopped.
+ * yet been stopped(被激活仅仅意味着线程已经启动且还没有终止).
  * <p>
- * In addition, <code>Runnable</code> provides the means for a class to be
+ * In addition(此外), <code>Runnable</code> provides the means for a class to be
  * active while not subclassing <code>Thread</code>. A class that implements
  * <code>Runnable</code> can run without subclassing <code>Thread</code>
  * by instantiating a <code>Thread</code> instance and passing itself in
- * as the target.  In most cases, the <code>Runnable</code> interface should
+ * as the target.  In most cases(在大多数情况下), the <code>Runnable</code> interface should
  * be used if you are only planning to override the <code>run()</code>
  * method and no other <code>Thread</code> methods.
  * This is important because classes should not be subclassed
@@ -58,7 +58,8 @@ public interface Runnable {
      * When an object implementing interface <code>Runnable</code> is used
      * to create a thread, starting the thread causes the object's
      * <code>run</code> method to be called in that separately executing
-     * thread.
+     * thread(当实现了Runnable接口后，启动线程时，对象的run()方法会在另一个
+     * 线程中被分开执行). 
      * <p>
      * The general contract of the method <code>run</code> is that it may
      * take any action whatsoever.

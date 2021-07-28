@@ -3296,7 +3296,7 @@ JVM_ENTRY(void, JVM_Interrupt(JNIEnv* env, jobject jthread))
   // acquire of the lock
   JavaThread* thr = java_lang_Thread::thread(JNIHandles::resolve_non_null(jthread));
   if (thr != NULL) {
-    Thread::interrupt(thr);
+    Thread::interrupt(thr); //中断线程
   }
 JVM_END
 

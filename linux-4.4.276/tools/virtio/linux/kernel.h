@@ -15,7 +15,13 @@
 #include <unistd.h>
 #include <asm/barrier.h>
 
-#define CONFIG_SMP
+/*
+Linux内核编译时，CONFIG_SMP配置项控制内核是否支持SMP.
+现在的内核包从2.4.23以后就没有专门的SMP内核包，在安装Linux系统时，
+会自动监测，如果检查到了多个CPU或多核，超线程时，会自动安装两个Linux内核，
+其中一个是带SMP的，在GRUB引导列表里会出现两个内核选择，默认使用SMP引导
+*/
+#define CONFIG_SMP //标识内核是否支持SMP，定义是否配置了SPM(Symmetrical Multi-Processing对称多处理)技术
 
 #define PAGE_SIZE getpagesize()
 #define PAGE_MASK (~(PAGE_SIZE-1))

@@ -62,7 +62,7 @@ class ThreadGroup implements Thread.UncaughtExceptionHandler {
     boolean daemon;
     boolean vmAllowSuspension;
 
-    int nUnstartedThreads = 0;
+    int nUnstartedThreads = 0; //未启动的线程数量
     int nthreads;
     Thread threads[];
 

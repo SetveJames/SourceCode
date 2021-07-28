@@ -187,24 +187,25 @@ char* os::iso8601_time(char* buffer, size_t buffer_length) {
   return buffer;
 }
 
+//设置线程优先级
 OSReturn os::set_priority(Thread* thread, ThreadPriority p) {
-#ifdef ASSERT
-  if (!(!thread->is_Java_thread() ||
-         Thread::current() == thread  ||
-         Threads_lock->owned_by_self()
-         || thread->is_Compiler_thread()
-        )) {
-    assert(false, "possibility of dangling Thread pointer");
-  }
-#endif
+	#ifdef ASSERT
+	  if (!(!thread->is_Java_thread() ||
+	         Thread::current() == thread  ||
+	         Threads_lock->owned_by_self()
+	         || thread->is_Compiler_thread()
+	        )) {
+	    assert(false, "possibility of dangling Thread pointer");
+	  }
+	#endif
 
-  if (p >= MinPriority && p <= MaxPriority) {
-    int priority = java_to_os_priority[p];
-    return set_native_priority(thread, priority);
-  } else {
-    assert(false, "Should not happen");
-    return OS_ERR;
-  }
+	if (p >= MinPriority && p <= MaxPriority) {
+		int priority = java_to_os_priority[p];
+		return set_native_priority(thread, priority);
+	} else {
+		assert(false, "Should not happen");
+		return OS_ERR;
+	}
 }
 
 // The mapping from OS priority back to Java priority may be inexact because

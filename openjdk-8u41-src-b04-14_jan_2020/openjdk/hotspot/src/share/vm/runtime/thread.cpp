@@ -449,6 +449,7 @@ ThreadPriority Thread::get_priority(const Thread* const thread) {
   return priority;
 }
 
+//设置java线程的优先级
 void Thread::set_priority(Thread* thread, ThreadPriority priority) {
   trace("set priority", thread);
   debug_only(check_for_dangling_thread_pointer(thread);)
@@ -801,10 +802,11 @@ bool JavaThread::profile_last_Java_frame(frame* _fr) {
   return gotframe;
 }
 
+//中断java线程
 void Thread::interrupt(Thread* thread) {
-  trace("interrupt", thread);
-  debug_only(check_for_dangling_thread_pointer(thread);)
-  os::interrupt(thread);
+  trace("interrupt", thread); //跟踪信息
+  debug_only(check_for_dangling_thread_pointer(thread);) //调试信息
+  os::interrupt(thread); //执行中断
 }
 
 bool Thread::is_interrupted(Thread* thread, bool clear_interrupted) {
