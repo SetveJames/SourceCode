@@ -869,7 +869,7 @@ public class Thread implements Runnable {
     }
 
     /**
-     * Interrupts this thread.中断线程
+     * Interrupts this thread.中断线程(只是做一个中断标记)
      *
      * <p> Unless the current thread is interrupting itself, which is
      * always permitted, the {@link #checkAccess() checkAccess} method
@@ -931,6 +931,7 @@ public class Thread implements Runnable {
     }
 
     /**
+     * 检查当前线程是否已经设置了中断标记，并且自动重置中断状态为false
      * Tests whether the current thread has been interrupted.  The
      * <i>interrupted status</i> of the thread is cleared by this method.  In
      * other words, if this method were to be called twice in succession, the
@@ -972,6 +973,9 @@ public class Thread implements Runnable {
      * Tests if some Thread has been interrupted.  The interrupted state
      * is reset or not based on the value of ClearInterrupted that is
      * passed.
+     * 
+     * 检测线程是否已经被中断。中断状态是否被重置取决于传入的参数ClearInterrupted
+     * ps:对应的本地方法位于thread.cpp 813行
      */
     private native boolean isInterrupted(boolean ClearInterrupted);
 
@@ -998,11 +1002,14 @@ public class Thread implements Runnable {
     }
 
     /**
+     * 检测线程是否存活着
      * Tests if this thread is alive. A thread is alive if it has
      * been started and has not yet died.
      *
      * @return  <code>true</code> if this thread is alive;
      *          <code>false</code> otherwise.
+
+     * ps：本地方法位于jvm.cpp 3063行
      */
     public final native boolean isAlive();
 
@@ -1101,7 +1108,7 @@ public class Thread implements Runnable {
     }
 
     /**
-     * Returns this thread's priority.
+     * Returns this thread's priority. 获取线程的优先级
      *
      * @return  this thread's priority.
      * @see     #setPriority
@@ -1238,8 +1245,7 @@ public class Thread implements Runnable {
      *          <i>interrupted status</i> of the current thread is
      *          cleared when this exception is thrown.
      */
-    public final synchronized void join(long millis)
-    throws InterruptedException {
+    public final synchronized void join(long millis) throws InterruptedException {
         long base = System.currentTimeMillis();
         long now = 0;
 
@@ -1288,16 +1294,13 @@ public class Thread implements Runnable {
      *          <i>interrupted status</i> of the current thread is
      *          cleared when this exception is thrown.
      */
-    public final synchronized void join(long millis, int nanos)
-    throws InterruptedException {
-
+    public final synchronized void join(long millis, int nanos) throws InterruptedException {
         if (millis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
 
         if (nanos < 0 || nanos > 999999) {
-            throw new IllegalArgumentException(
-                                "nanosecond timeout value out of range");
+            throw new IllegalArgumentException("nanosecond timeout value out of range");
         }
 
         if (nanos >= 500000 || (nanos != 0 && millis == 0)) {
@@ -1373,8 +1376,7 @@ public class Thread implements Runnable {
     }
 
     /**
-     * Determines if the currently running thread has permission to
-     * modify this thread.
+     * Determines if the currently running thread has permission to modify this thread.
      * <p>
      * If there is a security manager, its <code>checkAccess</code> method
      * is called with this thread as its argument. This may result in
@@ -1400,11 +1402,9 @@ public class Thread implements Runnable {
     public String toString() {
         ThreadGroup group = getThreadGroup();
         if (group != null) {
-            return "Thread[" + getName() + "," + getPriority() + "," +
-                           group.getName() + "]";
+            return "Thread[" + getName() + "," + getPriority() + "," + group.getName() + "]";
         } else {
-            return "Thread[" + getName() + "," + getPriority() + "," +
-                            "" + "]";
+            return "Thread[" + getName() + "," + getPriority() + "," + "" + "]";
         }
     }
 
@@ -1477,6 +1477,7 @@ public class Thread implements Runnable {
     }
 
     /**
+     * 让线程获取监视器锁，如果获取成功就返回true。
      * Returns <tt>true</tt> if and only if the current thread holds the
      * monitor lock on the specified object.
      *
@@ -1742,6 +1743,7 @@ public class Thread implements Runnable {
     public enum State {
         /**
          * Thread state for a thread which has not yet started.
+         * 线程已创建但还没有调用start()方法
          */
         NEW,
 
@@ -1749,11 +1751,12 @@ public class Thread implements Runnable {
          * Thread state for a runnable thread.  A thread in the runnable
          * state is executing in the Java virtual machine but it may
          * be waiting for other resources from the operating system
-         * such as processor.
+         * such as processor. 线程处于运行状态或者就绪状态(等待CPU执行)
          */
         RUNNABLE,
 
         /**
+         * 阻塞状态，等待监视器锁
          * Thread state for a thread blocked waiting for a monitor lock.
          * A thread in the blocked state is waiting for a monitor lock
          * to enter a synchronized block/method or
@@ -1799,7 +1802,7 @@ public class Thread implements Runnable {
 
         /**
          * Thread state for a terminated thread.
-         * The thread has completed execution.
+         * The thread has completed execution. 线程执行完成，线程终止
          */
         TERMINATED;
     }
@@ -1927,8 +1930,7 @@ public class Thread implements Runnable {
      * @return the uncaught exception handler for this thread
      */
     public UncaughtExceptionHandler getUncaughtExceptionHandler() {
-        return uncaughtExceptionHandler != null ?
-            uncaughtExceptionHandler : group;
+        return uncaughtExceptionHandler != null ? uncaughtExceptionHandler : group;
     }
 
     /**

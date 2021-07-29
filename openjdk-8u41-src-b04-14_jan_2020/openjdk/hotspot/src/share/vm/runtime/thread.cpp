@@ -809,6 +809,7 @@ void Thread::interrupt(Thread* thread) {
   os::interrupt(thread); //执行中断
 }
 
+//检测当前线程是否已经被中断
 bool Thread::is_interrupted(Thread* thread, bool clear_interrupted) {
   trace("is_interrupted", thread);
   debug_only(check_for_dangling_thread_pointer(thread);)

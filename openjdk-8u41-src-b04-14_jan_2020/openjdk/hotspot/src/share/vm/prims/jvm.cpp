@@ -3059,7 +3059,7 @@ JVM_ENTRY(void, JVM_StopThread(JNIEnv* env, jobject jthread, jobject throwable))
   }
 JVM_END
 
-
+//判断线程是否存活者
 JVM_ENTRY(jboolean, JVM_IsThreadAlive(JNIEnv* env, jobject jthread))
   JVMWrapper("JVM_IsThreadAlive");
 
@@ -3300,7 +3300,7 @@ JVM_ENTRY(void, JVM_Interrupt(JNIEnv* env, jobject jthread))
   }
 JVM_END
 
-
+//检测当前线程是否已经被中断
 JVM_QUICK_ENTRY(jboolean, JVM_IsInterrupted(JNIEnv* env, jobject jthread, jboolean clear_interrupted))
   JVMWrapper("JVM_IsInterrupted");
 

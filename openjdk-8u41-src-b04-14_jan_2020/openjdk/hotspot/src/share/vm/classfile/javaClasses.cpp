@@ -988,7 +988,7 @@ void java_lang_Thread::set_stillborn(oop java_thread) {
   java_thread->bool_field_put(_stillborn_offset, true);
 }
 
-
+//判断线程是否存活着
 bool java_lang_Thread::is_alive(oop java_thread) {
   JavaThread* thr = java_lang_Thread::thread(java_thread);
   return (thr != NULL);
