@@ -4964,6 +4964,7 @@ void os::make_polling_page_readable(void) {
   }
 };
 
+//获取CPU的核心数量
 int os::active_processor_count() {
   // Linux doesn't yet have a (official) notion of processor sets,
   // so just return the number of online processors.

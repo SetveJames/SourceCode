@@ -90,6 +90,7 @@ Java_java_lang_Runtime_runFinalization0(JNIEnv *env, jobject this)
     }
 }
 
+// 获取CPU的核心数
 JNIEXPORT jint JNICALL
 Java_java_lang_Runtime_availableProcessors(JNIEnv *env, jobject this)
 {

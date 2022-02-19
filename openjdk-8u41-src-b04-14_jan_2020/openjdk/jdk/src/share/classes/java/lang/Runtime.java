@@ -632,6 +632,8 @@ public class Runtime {
      *          machine; never smaller than one
      * @since 1.4
      */
+     //对应 /jdk/src/share/native/java/lang/Runtime.c的
+     //Java_java_lang_Runtime_availableProcessors(***)方法
     public native int availableProcessors();
 
     /**
