@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'org.springframework'
+version '5.2.23.BUILD-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //添加对spring-context模块的依赖
+    compile(project(":spring-context"))
+//    compile(project(":spring-instrument"))
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

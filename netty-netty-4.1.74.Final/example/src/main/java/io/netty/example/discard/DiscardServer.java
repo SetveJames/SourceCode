@@ -38,6 +38,7 @@ public final class DiscardServer {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8009"));
 
     public static void main(String[] args) throws Exception {
+
         // Configure SSL.
         final SslContext sslCtx;
         if (SSL) {
