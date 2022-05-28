@@ -126,11 +126,10 @@ public class PropertyPlaceholderHelper {
 		return parseStringValue(value, placeholderResolver, null);
 	}
 
-	protected String parseStringValue(
-			String value, PlaceholderResolver placeholderResolver, @Nullable Set<String> visitedPlaceholders) {
+	protected String parseStringValue(String value, PlaceholderResolver placeholderResolver, @Nullable Set<String> visitedPlaceholders) {
 
 		int startIndex = value.indexOf(this.placeholderPrefix);
-		if (startIndex == -1) {
+		if (startIndex == -1) { //若路径名称中没有占位符则直接返回
 			return value;
 		}
 
